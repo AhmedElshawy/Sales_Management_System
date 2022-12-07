@@ -1,3 +1,5 @@
+using Core.Interfaces;
+using Infrastructure;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,8 @@ namespace Sales_Management_System
             o.UseSqlServer(builder.Configuration.GetConnectionString("default"),
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
+            //Add Unit of work service
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();         
 
             var app = builder.Build();
 
