@@ -8,7 +8,7 @@ namespace Core.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Description { get; set; } = "No description provided";
+        public string Description { get; set; }
         public int Quantity { get; set; }
         public int Sold { get; set; }
 
@@ -16,9 +16,11 @@ namespace Core.Models
         public decimal UnitPrice { get; set; }
 
         [ForeignKey("Category")]
+        [Required(ErrorMessage = "You have not chosen the category")]
         public int CategoryId { get; set; }
 
         [ForeignKey("Brand")]
+        [Required(ErrorMessage ="You have not chosen the brand")]
         public int BrandId { get; set; }
 
         // navigation properties
