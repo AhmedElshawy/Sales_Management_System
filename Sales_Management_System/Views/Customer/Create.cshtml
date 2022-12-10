@@ -1,0 +1,35 @@
+﻿@model Core.Models.Customer;
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-8">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form asp-action="Create">
+                    <h6 class="mb-4">Enter the reqired data</h6>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" id="floatingInput"
+                               placeholder="Customer Name">
+                        <label for="floatingInput">Customer Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Address" class="form-control" id="floatingInput"
+                               placeholder="Customer Address">
+                        <label for="floatingInput">Customer Address</label>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Phone" class="form-control" id="floatingInput"
+                               placeholder="Customer Phone">
+                        <label for="floatingInput">Customer Phone</label>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <input type="submit" value="Add" class="btn btn-outline-primary px-5" />
+                        <a asp-action="Index" asp-controller="Customer" class="btn btn-outline-warning px-5 mx-1">Cancel Add</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

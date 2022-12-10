@@ -68,6 +68,11 @@ namespace Sales_Management_System.Controllers
             {
                 return NotFound();
             }
+            var categories = await _unitOfWork.Categories.ListAllAsync();
+            var brands = await _unitOfWork.Brands.ListAllAsync();
+
+            ViewBag.categories = categories;
+            ViewBag.brands = brands;
             return View(product);
         }
 
@@ -92,6 +97,13 @@ namespace Sales_Management_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            var categories = await _unitOfWork.Categories.ListAllAsync();
+            var brands = await _unitOfWork.Brands.ListAllAsync();
+
+            ViewBag.categories = categories;
+            ViewBag.brands = brands;
+
             return View(product);
         }
     }

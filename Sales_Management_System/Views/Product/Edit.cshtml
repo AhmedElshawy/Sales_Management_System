@@ -1,0 +1,86 @@
+﻿@model Core.Models.Product
+
+<div class="container bg-secondary rounded h-100 p-4">
+    <form asp-action="Edit">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" class="form-control" id="floatingInputName"
+                           placeholder="Product Name">
+                    <label for="floatingInputName">Product Name</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating mb-3">
+                    <input asp-for="Quantity" class="form-control" id="floatingInputQuantity"
+                           placeholder="Quantity">
+                    <label for="floatingInputQuantity">Quantity</label>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating mb-3">
+                    <input asp-for="Sold" class="form-control" id="floatingInputSold"
+                           placeholder="Sold">
+                    <label for="floatingInputSold">Sold</label>
+                    <span asp-validation-for="Sold" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-floating mb-3">
+                    <input asp-for="UnitPrice" class="form-control" id="floatingInputUnitPrice"
+                           placeholder="Unit Price">
+                    <label for="floatingInputUnitPrice">Unit Price</label>
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <select asp-for="CategoryId" class="form-select" id="floatingSelectCategory">                       
+                        @foreach (var item in ViewBag.categories)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <label for="floatingSelectCategory">select product category</label>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <select asp-for="BrandId" class="form-select" id="floatingSelectBrand"
+                            aria-label="Floating label select example">
+                        @foreach (var item in ViewBag.brands)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <label for="floatingSelectBrand">select product brand</label>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-floating">
+                    <textarea asp-for="Description" class="form-control" placeholder="Description"
+                              id="floatingTextarea" style="height: 150px;"></textarea>
+                    <label for="floatingTextarea">Description</label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <input asp-for="Id" type="hidden" />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <input type="submit" value="Edit" class="btn btn-outline-primary px-5" />
+                <a asp-action="Index" asp-controller="Product" class="btn btn-outline-warning px-5 mx-1">Cancel Edit</a>
+            </div>
+        </div>
+    </form>
+</div>
