@@ -1,12 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Core.Constants;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Models
 {
     public class Invoice
     {
         public int Id { get; set; }
-        public DateTimeOffset InvoiceDate { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
         public decimal Amount { get; set; }
+        public InvoiceStatus Status { get; set; } = InvoiceStatus.Pending;
 
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }

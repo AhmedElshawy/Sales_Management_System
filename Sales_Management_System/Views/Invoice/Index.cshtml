@@ -1,0 +1,57 @@
+﻿
+@{
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary text-center rounded p-4" style="min-height:250px;">
+        <div class="row d-flex align-items-center justify-content-between mb-4">
+            <div class="col-3">
+                <h6>Select the product and quantity</h6>
+            </div>
+            <div class="col-3">
+                <form class="d-none d-md-flex ms-4">
+                    <input id="search-box" class="form-control bg-dark border-0 text-white" type="search" placeholder="Search">
+                </form>               
+            </div>
+            <div class="col-3">               
+                <select class="form-select" id="category-select-list">
+                    <option value="null" selected>Filter by category</option>
+                    @foreach (var item in ViewBag.categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>                      
+                    }
+                </select>
+            </div>
+            <div class="col-3">
+                <select class="form-select" id="brand-select-list">
+                    <option value="null" selected>Filter by Brand</option>
+                    @foreach (var item in ViewBag.brands)
+                    {
+                        <option value="@item.Id">@item.Name</option>                                          
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-primary">
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Unit Price (EGP)</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Available Quantity</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body" class="text-white">
+                                             
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/assets/js/InvoiceIndexPage.js"></script>
+}

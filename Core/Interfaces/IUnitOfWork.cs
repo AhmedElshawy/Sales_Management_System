@@ -10,6 +10,7 @@ namespace Core.Interfaces
         IBaseRepository<Invoice> Invoices { get; }
         IBaseRepository<InvoiceItem> InvoiceItems { get; }
         IBaseRepository<Customer> Customers { get; }
+        IProductRepository ProductRepository { get; }
 
         Task<int> CompleteAsync();
     }

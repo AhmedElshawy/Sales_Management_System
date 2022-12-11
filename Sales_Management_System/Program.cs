@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Context;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Sales_Management_System
@@ -20,7 +21,9 @@ namespace Sales_Management_System
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
             //Add Unit of work service
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();         
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //Add product repository service
+            //builder.Services.AddScoped<IProductRepository,ProductRepository>();
 
             var app = builder.Build();
 

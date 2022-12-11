@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using Core.Models;
+using Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,7 @@ namespace Sales_Management_System.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var products = await _unitOfWork.Products.ListAllAsync();          
+            var products = await _unitOfWork.Products.ListAllAsync();
             return View(products);
         }
 
@@ -106,5 +107,11 @@ namespace Sales_Management_System.Controllers
 
             return View(product);
         }
+
+        public async Task<JsonResult> GetAllProducts(ProductParams productParams)
+        {           
+            var products = await _unitOfWork.ProductRepository.ApplayFillter(productParams);
+            return Json(products);
+        }    
     }
 }
