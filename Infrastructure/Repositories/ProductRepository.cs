@@ -31,7 +31,7 @@ namespace Infrastructure.Repositories
                 query = query.Where(m=>m.Name.ToLower().Contains(productParams.Search));
             }
 
-            return await query.ToListAsync();
+            return await query.Take(3).ToListAsync();
         }
 
         public async Task<List<Product>> ApplaySearchFillter(string search)

@@ -82,5 +82,20 @@ namespace Sales_Management_System.Controllers
             }
             return View(customer);
         }
+
+        public async Task<JsonResult> GetFilteredCustomers(string search)
+        {
+            List<Customer> customers;
+            if(search != null)
+            {
+                customers = await _unitOfWork.Customers.ListTopRecordsAsync(3,m => m.Name.ToLower().Contains(search));
+            }
+            else
+            {
+                customers = await _unitOfWork.Customers.ListTopRecordsAsync(3);
+            }
+
+            return Json(customers);
+        }
     }
 }

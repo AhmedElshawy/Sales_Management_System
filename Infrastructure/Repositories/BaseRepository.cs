@@ -69,6 +69,18 @@ namespace Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<List<T>> ListTopRecordsAsync(int topRecordsNumber)
+        {
+            return await _context.Set<T>().Take(topRecordsNumber).ToListAsync();
+        }
+        public async Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, bool>> criteria)
+        {
+            var query = await _context.Set<T>().Where(criteria).Take(topRecordsNumber)
+                .ToListAsync();
+
+            return query;
+        }
+
         public bool Delete(T entity)
         {
             var result = _context.Remove(entity);

@@ -14,7 +14,8 @@ namespace Core.Interfaces
         Task<List<T>> ListAllAsync(Expression<Func<T, bool>> criteria, Expression<Func<T, bool>> secondCriteria);
         Task<ICollection<TType>> ListAllAsync<TType>(Expression<Func<T, TType>> select);
         Task<ICollection<TType>> ListAllAsync<TType>(Expression<Func<T, bool>> criteria, Expression<Func<T, TType>> select);
-
+        Task<List<T>> ListTopRecordsAsync(int topRecordsNumber);
+        Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, bool>> criteria);
         Task AddAsync(T entity);
         void Update(T entity);
         bool Delete(T entity);

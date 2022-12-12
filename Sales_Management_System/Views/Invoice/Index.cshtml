@@ -50,8 +50,69 @@
             </table>
         </div>
     </div>
+
+
+    <div class="bg-secondary text-center rounded p-4 mt-5" style="min-height:250px;">
+        <div class="row d-flex align-items-center justify-content-between mb-4">
+            <div class="col-3">
+                <h6>Select from existing customers</h6>
+            </div>
+            <div class="col-3">
+                <form class="d-none d-md-flex ms-4">
+                    <input id="search-box-customers" class="form-control bg-dark border-0 text-white" type="search" placeholder="Search">
+                </form>
+            </div>          
+        </div>       
+            <div class="table-responsive">
+                 <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-primary">
+                            <th scope="col"></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body-customers" class="text-white">
+
+                    </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+    <div class="bg-secondary text-center rounded p-4 mt-5" style="min-height:250px;">
+       <div class="row d-flex align-items-center justify-content-between mb-4">
+            <div class="col-3">
+                <h6>Enter new customer data</h6>
+            </div>                   
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingInput"
+                           placeholder="Customer Name">
+                    <label for="floatingInput">Customer Name</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingInput"
+                           placeholder="Customer Phone">
+                    <label for="floatingInput">Customer Phone</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingInput"
+                           placeholder="Customer Address">
+                    <label for="floatingInput">Customer Address</label>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts{
-    <script src="~/assets/js/InvoiceIndexPage.js"></script>
+    <script src="~/assets/js/InvoiceIndexPage.js" asp-append-version="true"></script>
 }
