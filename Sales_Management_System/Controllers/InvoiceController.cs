@@ -20,5 +20,17 @@ namespace Sales_Management_System.Controllers
 
             return View();
         }
+
+        public IActionResult Review()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create(List<InvoiceItemDto> invoiceItems, CustomerDto customer)
+        //{
+        //    Thread.Sleep(2000);
+        //    return Json("success");
+        //}
     }
 }

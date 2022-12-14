@@ -19,6 +19,25 @@
         });
     },
 
+    //submitInvoice: function () {
+    //    $.ajax({
+    //        type: "POST",
+    //        data: {
+    //            invoiceItems: this.cart,
+    //            customer: this.customer
+    //        },
+    //        url: "/Invoice/Create",
+    //        dataType: "json",
+    //        success: function (response) {              
+    //            //window.location.href = "/Invoice/Review";
+    //            console.log(response);
+    //        },
+    //        failure: function (err) {
+    //            window.alert("حدث خطأ غير متوقع");
+    //        }
+    //    });
+    //},
+
     getAllCustomers: function () {
         $.ajax({
             type: "POST",
@@ -29,11 +48,35 @@
             dataType: "json",
             success: function (response) {
                 invoiceIndexPage.drawCustomersTable(response);
+                invoiceIndexPage.choseCustomer(document.querySelectorAll(".customer-check-box"), response);
             },
             failure: function (err) {
                 window.alert("حدث خطأ غير متوقع");
             }
         });
+    },
+
+    customer: {} 
+    ,
+
+    choseCustomer: function (arr, response) {
+
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].addEventListener("change", (ev) => {
+                if (ev.target.checked) {
+                    let id = ev.target.parentElement.parentElement.id;
+                    let customer = response.find((ele) => {
+                        return ele.id == id;
+                    });
+                    this.customer = customer;
+                    console.log(this.customer);
+                }
+                else {
+                    this.customer = {};
+                    console.log(this.customer);
+                }
+            });
+        }
     },
 
     drawTable: function (arr) {
@@ -57,7 +100,7 @@
 
     isInCart: function (id) {
         let result = this.cart.find((ele) => {
-            return ele.id == id;
+            return ele.productId == id;
         });
 
         if (result == undefined) {
@@ -71,8 +114,8 @@
         customersTableBody.innerHTML = "";
 
         let result = arr.map((element, index) => {
-            return `<tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
+            return `<tr id = ${element.id}>
+                        <td><input class="form-check-input customer-check-box" type="checkbox"></td>
                         <td>${element.name}</td>
                         <td>${element.address}</td>
                         <td>${element.phone}</td>
@@ -103,7 +146,7 @@
                     });
 
                     let invoiceItem = {
-                        id: product.id,
+                        productId: product.id,
                         name: product.name,
                         quantity: ev.target.parentElement.parentElement.children[3].children[0].value,
                         unitPrice: product.unitPrice
@@ -114,7 +157,7 @@
                 else {
                     let id = ev.target.parentElement.parentElement.id;
                     let productToRemoveIndex = this.cart.findIndex((ele) => {
-                        return ele.id == id;
+                        return ele.productId == id;
                     });
                     this.cart.splice(productToRemoveIndex, 1);
                     this.drawCart(this.cart);
@@ -141,6 +184,10 @@
         for (var i = 0; i < result.length; i++) {
             productsCart.innerHTML += result[i];
         }
+    },
+    saveInvoiceDataIntoLocalStorage: function () {
+        let invoiceData = { invoiceItems: this.cart, customer: this.customer }
+        localStorage.setItem("invoiceData", JSON.stringify(invoiceData));
     }
 
 }
@@ -157,6 +204,9 @@ let customersTableSearchBox = document.getElementById("search-box-customers");
 
 // product cart selections
 let productsCart = document.getElementById("products-cart");
+
+// getting review button
+let reviewBtn = document.getElementById("btn-review");
 
 
 // on page load -initialization-
@@ -182,4 +232,10 @@ brandSelectList.addEventListener("change", () => {
 // customer table events
 customersTableSearchBox.addEventListener("keyup", (event) => {
     invoiceIndexPage.getAllCustomers();
+});
+
+
+reviewBtn.addEventListener("click", () => {
+    invoiceIndexPage.saveInvoiceDataIntoLocalStorage();
+    window.location.href = "/Invoice/Review";
 });
