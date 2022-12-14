@@ -35,7 +35,25 @@
             total += invoiceItems[i].unitPrice * invoiceItems[i].quantity;
         }
         return total.toFixed(2);
-    }
+    },
+
+    submitInvoice: function () {
+        $.ajax({
+            type: "POST",
+            data: {
+                invoiceItems: this.invoiceData.invoiceItems,
+                customer: this.invoiceData.customer
+            },
+            url: "/Invoice/Create",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+            },
+            failure: function (err) {
+                window.alert("حدث خطأ غير متوقع");
+            }
+        });
+    },
 }
 
 
@@ -58,3 +76,12 @@ let itemsTableBody = document.getElementById("items-table-body");
 // getting invoice general data fields
 let numberOfItemsFiled = document.getElementById("number-of-items");
 let totalField = document.getElementById("total");
+
+//getting confirm button
+let confirmBtn = document.getElementById("btn-confirm");
+
+
+
+confirmBtn.addEventListener("click", () => {
+    invoiceReviewPage.submitInvoice();
+});

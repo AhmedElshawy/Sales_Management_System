@@ -19,25 +19,6 @@
         });
     },
 
-    //submitInvoice: function () {
-    //    $.ajax({
-    //        type: "POST",
-    //        data: {
-    //            invoiceItems: this.cart,
-    //            customer: this.customer
-    //        },
-    //        url: "/Invoice/Create",
-    //        dataType: "json",
-    //        success: function (response) {              
-    //            //window.location.href = "/Invoice/Review";
-    //            console.log(response);
-    //        },
-    //        failure: function (err) {
-    //            window.alert("حدث خطأ غير متوقع");
-    //        }
-    //    });
-    //},
-
     getAllCustomers: function () {
         $.ajax({
             type: "POST",

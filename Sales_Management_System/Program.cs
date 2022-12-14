@@ -1,7 +1,7 @@
 using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Context;
-using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Sales_Management_System
@@ -20,10 +20,11 @@ namespace Sales_Management_System
             o.UseSqlServer(builder.Configuration.GetConnectionString("default"),
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
-            //Add Unit of work service
+            // Add Unit of work service
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //Add product repository service
-            //builder.Services.AddScoped<IProductRepository,ProductRepository>();
+
+            // Add Invoice Service
+            builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
             var app = builder.Build();
 
