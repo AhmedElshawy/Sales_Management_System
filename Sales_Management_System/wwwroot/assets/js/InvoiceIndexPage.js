@@ -66,7 +66,7 @@
                         <td><input class="form-check-input product-check-box" ${this.isInCart(element.id)} type="checkbox"></td>
                         <td>${element.name}</td>
                         <td>${element.unitPrice}</td>
-                        <td style="width:15%;"><input class="form-control" value="1" type="number" /></td>
+                        <td style="width:15%;"><input onchange="invoiceIndexPage.validateQuantity(this)" class="form-control" value="1" type="number" /></td>
                         <td>${element.quantity}</td>
                         <td>${this.getProductStatus(element.quantity)}</td>
                     </tr>`;
@@ -174,6 +174,17 @@
             return true;
         }
         return false;
+    },
+
+    validateQuantity: function (element) {
+        let availableQuantity = Number(element.parentElement.parentElement.children[4].innerHTML);
+        if (element.value > availableQuantity) {
+            window.alert("You cannot chose quantity more than the available")
+            element.value = availableQuantity;
+        } else if (element.value <= 0) {
+            window.alert("You cannot chose quantity equals or less than zero");
+            element.value = 1;
+        } 
     }
 
 }
@@ -231,3 +242,15 @@ reviewBtn.addEventListener("click", () => {
         window.location.href = "/Invoice/Review";
     }
 });
+
+
+function validateQuantity(element) {
+    let availableQuantity = Number(x.parentElement.parentElement.children[4].innerHTML);
+    if (element.value > availableQuantity) {
+        window.alert("You cannot chose quantity more than the available")
+        element.value = availableQuantity;
+    } else if (element.value <= 0) {
+        window.alert("You cannot chose quantity equals or less than zero");
+        element.value = 1;
+    }   
+}
