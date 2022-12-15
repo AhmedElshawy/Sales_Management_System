@@ -50,11 +50,9 @@
                         return ele.id == id;
                     });
                     this.customer = customer;
-                    console.log(this.customer);
                 }
                 else {
                     this.customer = {};
-                    console.log(this.customer);
                 }
             });
         }
@@ -169,6 +167,13 @@
     saveInvoiceDataIntoLocalStorage: function () {
         let invoiceData = { invoiceItems: this.cart, customer: this.customer }
         localStorage.setItem("invoiceData", JSON.stringify(invoiceData));
+    },
+
+    isInvoiceDataEmpty: function () {
+        if (Object.keys(invoiceIndexPage.customer).length === 0 || invoiceIndexPage.cart.length === 0) {
+            return true;
+        }
+        return false;
     }
 
 }
@@ -217,6 +222,12 @@ customersTableSearchBox.addEventListener("keyup", (event) => {
 
 
 reviewBtn.addEventListener("click", () => {
-    invoiceIndexPage.saveInvoiceDataIntoLocalStorage();
-    window.location.href = "/Invoice/Review";
+    if (invoiceIndexPage.isInvoiceDataEmpty()) {
+        window.alert("Please chose at least one product and customer");
+    }
+    else
+    {
+        invoiceIndexPage.saveInvoiceDataIntoLocalStorage();
+        window.location.href = "/Invoice/Review";
+    }
 });
