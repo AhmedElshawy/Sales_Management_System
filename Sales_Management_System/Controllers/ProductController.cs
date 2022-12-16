@@ -108,10 +108,19 @@ namespace Sales_Management_System.Controllers
             return View(product);
         }
 
+        [HttpPost]
         public async Task<JsonResult> GetAllProducts(ProductParams productParams)
         {           
             var products = await _unitOfWork.ProductRepository.ApplayFillter(productParams);
             return Json(products);
-        }    
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetNearlyOutOfStockProducts()
+        {
+            var products = await _unitOfWork.Products.ListAllAsync(m=>m.Quantity < 3);
+            return Json(products);
+        }      
+        
     }
 }

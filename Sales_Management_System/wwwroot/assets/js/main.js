@@ -1,5 +1,66 @@
-(function ($) {
-    "use strict";
+﻿let mainJavaScriptFile = {
+    notificationArea: document.getElementById("notification"),
+    notificationsNumber: document.getElementById("notifications-number"),
+
+    getNearlyOutOfStockProducts: function () {
+        $.ajax({
+            type: "POST",
+            data: {},
+            url: "/Product/GetNearlyOutOfStockProducts",
+            dataType: "json",
+            success: function (response) {
+                if (response.length > 0) {
+                    mainJavaScriptFile.notificationsNumber.innerHTML = response.length;
+                }
+                mainJavaScriptFile.drawNotificationList(response);
+            },
+            failure: function (err) {
+                window.alert("حدث خطأ غير متوقع");              
+            }
+        });
+    },     
+
+    drawNotificationList: function (notificationList) {
+        this.notificationArea.innerHTML = "";
+
+        let result = notificationList.map((element) => {
+            return `<a href="#" class="dropdown-item">
+                     <div class="d-flex align-items-center">
+                             <div class="ms-2">
+                                  <h6 class="fw-normal mb-0">${element.name}</h6>
+                                   ${this.getProductStatus(element.quantity)}
+                                   <br />
+                                   <small>Quantity: ${element.quantity}</small>
+                             </div>
+                     </div>
+                 </a>
+                 <hr class="dropdown-divider">`;
+        });
+
+        for (var i = 0; i < result.length; i++) {
+            this.notificationArea.innerHTML += result[i];
+        }
+    },
+
+    getProductStatus: function (quantity) {
+        if (quantity == 0) {
+            return `<small class="text-danger">Out of stock</small>`;
+        }
+
+        return `<small class="text-warning">Nearly out of stock</small>`;
+    },
+
+    pushNotification: function () {
+        this.getNearlyOutOfStockProducts();
+    }
+};
+
+mainJavaScriptFile.pushNotification();
+
+
+
+//(function ($) {
+    //"use strict";
 
     // Spinner
     var spinner = function () {
@@ -12,18 +73,18 @@
     spinner();
     
     
-    // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
-    });
+    //// Back to top button
+    //$(window).scroll(function () {
+    //    if ($(this).scrollTop() > 300) {
+    //        $('.back-to-top').fadeIn('slow');
+    //    } else {
+    //        $('.back-to-top').fadeOut('slow');
+    //    }
+    //});
+    //$('.back-to-top').click(function () {
+    //    $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+    //    return false;
+    //});
 
 
     // Sidebar Toggler
@@ -33,12 +94,12 @@
     });
 
 
-    // Progress Bar
-    $('.pg-bar').waypoint(function () {
-        $('.progress .progress-bar').each(function () {
-            $(this).css("width", $(this).attr("aria-valuenow") + '%');
-        });
-    }, {offset: '80%'});
+    //// Progress Bar
+    //$('.pg-bar').waypoint(function () {
+    //    $('.progress .progress-bar').each(function () {
+    //        $(this).css("width", $(this).attr("aria-valuenow") + '%');
+    //    });
+    //}, {offset: '80%'});
 
 
     // Calender
@@ -208,5 +269,5 @@
     //});
 
     
-})(jQuery);
+//})(jQuery);
 
