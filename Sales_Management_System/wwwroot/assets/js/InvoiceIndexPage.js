@@ -29,7 +29,7 @@
             dataType: "json",
             success: function (response) {
                 invoiceIndexPage.drawCustomersTable(response);
-                invoiceIndexPage.choseCustomer(document.querySelectorAll(".customer-check-box"), response);
+                invoiceIndexPage.choseFormExistingCustomers(document.querySelectorAll(".customer-check-box"), response);
             },
             failure: function (err) {
                 window.alert("حدث خطأ غير متوقع");
@@ -40,7 +40,7 @@
     customer: {} 
     ,
 
-    choseCustomer: function (arr, response) {
+    choseFormExistingCustomers: function (arr, response) {
 
         for (var i = 0; i < arr.length; i++) {
             arr[i].addEventListener("change", (ev) => {
@@ -56,6 +56,38 @@
                 }
             });
         }
+    },
+
+    addNewCustomer: function () {
+        let name = document.getElementById("name-input").value;
+        let address = document.getElementById("address-input").value;
+        let phone = document.getElementById("phone-input").value;
+
+        if (this.validateNewCustomerInputs(name, address, phone)) {
+            let customer = {
+                name: name,
+                address: address,
+                phone: phone
+            }
+        this.customer = customer;       
+        }
+        else
+        {
+            window.alert("Please enter customer name at least");
+        }       
+    },
+
+    validateNewCustomerInputs: function (name, address, phone) {
+        if (name == "") {
+            return false;
+        }
+        return true;
+    },
+
+    isExistingCustomerSectionExpanded: function () {
+        let ariaExpanded = existingCustomersSection.getAttribute("aria-expanded");
+        if (ariaExpanded == "false") return false;
+        else return true;
     },
 
     drawTable: function (arr) {
@@ -233,6 +265,10 @@ customersTableSearchBox.addEventListener("keyup", (event) => {
 
 
 reviewBtn.addEventListener("click", () => {
+    if (!invoiceIndexPage.isExistingCustomerSectionExpanded()) {
+        invoiceIndexPage.addNewCustomer();
+    }
+
     if (invoiceIndexPage.isInvoiceDataEmpty()) {
         window.alert("Please chose at least one product and customer");
     }
@@ -244,13 +280,11 @@ reviewBtn.addEventListener("click", () => {
 });
 
 
-function validateQuantity(element) {
-    let availableQuantity = Number(x.parentElement.parentElement.children[4].innerHTML);
-    if (element.value > availableQuantity) {
-        window.alert("You cannot chose quantity more than the available")
-        element.value = availableQuantity;
-    } else if (element.value <= 0) {
-        window.alert("You cannot chose quantity equals or less than zero");
-        element.value = 1;
-    }   
-}
+
+let existingCustomersSection = document.getElementById("testbtn");
+
+existingCustomersSection.addEventListener("click", () => {
+    let isExpanded = existingCustomersSection.getAttribute("aria-expanded");
+    console.log(isExpanded);
+});
+
