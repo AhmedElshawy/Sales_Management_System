@@ -33,8 +33,19 @@ namespace Sales_Management_System.Controllers
         [HttpPost]
         public async Task<JsonResult> Create(List<InvoiceItemDto> invoiceItems, CustomerDto customer)
         {
-            Invoice result = await _invoiceService.GenerateInvoiceAsync(invoiceItems, customer);
+            string inputsValidationMessage = _invoiceService.ValidateInputs(invoiceItems, customer);
+            if(!string.IsNullOrEmpty(inputsValidationMessage))
+            {
+                return Json(inputsValidationMessage);
+            }
 
+            string itemsQuantityValidationMessage = await _invoiceService.ValidateItemsQuantityAsync(invoiceItems);
+            if(!string.IsNullOrEmpty(itemsQuantityValidationMessage))
+            {
+                return Json(itemsQuantityValidationMessage);
+            }
+
+            Invoice result = await _invoiceService.GenerateInvoiceAsync(invoiceItems, customer);
 
             List<InvoiceItemDto> dtos = new List<InvoiceItemDto>();
 
