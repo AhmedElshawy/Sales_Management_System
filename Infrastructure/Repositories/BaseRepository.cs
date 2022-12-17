@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Infrastructure.Context;
+using System.Linq;
 
 namespace Infrastructure.Repositories
 {
@@ -50,6 +51,16 @@ namespace Infrastructure.Repositories
             return await _context.Set<T>().Where(criteria).ToListAsync();
         }
 
+        public async Task<List<T>> ListAllAsync(int numberOfRows ,Expression<Func<T, bool>> criteria)
+        {
+            return await _context.Set<T>().Where(criteria).Take(numberOfRows).ToListAsync();
+        }
+
+        public async Task<List<T>> ListAllAsync(int numberOfRows, Expression<Func<T, bool>> criteria, Expression<Func<T, object>> include)
+        {
+            return await _context.Set<T>().Where(criteria).Take(numberOfRows).Include(include).ToListAsync();
+        }
+
         public async Task AddAsync(T entity)
         {
             await _context.AddAsync(entity);
@@ -73,7 +84,6 @@ namespace Infrastructure.Repositories
         {
             return await _context.Set<T>().Take(topRecordsNumber).ToListAsync();
         }
-        //Expression<Func<T, TType>> select
         public async Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, object>> include)
         {
             return await _context.Set<T>().Take(topRecordsNumber)
@@ -87,6 +97,15 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
 
             return query;
+        }
+
+        public async Task<List<T>> ListRecentAddedRecordsAsync<TKey>(int numberOfRecords, Expression<Func<T, TKey>> selector, Expression<Func<T, object>> include)
+        {
+            return await _context.Set<T>()
+                .OrderByDescending(selector)
+                .Take(numberOfRecords)
+                .Include(include)
+                .ToListAsync();
         }
 
         public bool Delete(T entity)
@@ -136,5 +155,6 @@ namespace Infrastructure.Repositories
 
             return query;
         }
+        
     }
 }

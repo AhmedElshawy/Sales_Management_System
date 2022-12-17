@@ -95,7 +95,7 @@
 
         let result = arr.map((element, index) => {
             return `<tr id = ${element.id}>
-                        <td><input class="form-check-input product-check-box" ${this.isInCart(element.id)} type="checkbox"></td>
+                        <td><input class="form-check-input product-check-box" ${this.isOutOfStock(element.quantity)} ${this.isInCart(element.id)} type="checkbox"></td>
                         <td>${element.name}</td>
                         <td>${element.unitPrice}</td>
                         <td style="width:15%;"><input onchange="invoiceIndexPage.validateQuantity(this)" class="form-control" value="1" type="number" /></td>
@@ -119,6 +119,13 @@
         } else {
             return "checked = true";
         }
+    },
+
+    isOutOfStock: function (quantity) {
+        if (quantity == 0) {
+            return "disabled";
+        }
+        return "";
     },
 
     drawCustomersTable: function (arr) {

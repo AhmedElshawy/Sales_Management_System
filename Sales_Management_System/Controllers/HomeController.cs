@@ -22,7 +22,8 @@ namespace Sales_Management_System.Controllers
             var todaySale = _unitOfWork.Invoices.SumColumn(c=>c.Date == DateTime.Now.Date, c=>c.Amount);
             var monthlySale = _unitOfWork.Invoices.SumColumn(d=>d.Date.Month == DateTime.Now.Month, c=>c.Amount);
             var productsValue = _unitOfWork.Products.SumColumn(c=>c.UnitPrice * c.Quantity).ToString("00.00");
-            var recentSale = await _unitOfWork.Invoices.ListTopRecordsAsync(5,o=>o.Customer);
+            var recentSale = await _unitOfWork.Invoices.ListRecentAddedRecordsAsync(5, s => s.Id,i=>i.Customer);
+
 
             ViewBag.TotalSale = totalSale;
             ViewBag.TodaySale = todaySale;
