@@ -6,7 +6,9 @@ namespace Core.Models
     public class Invoice
     {
         public int Id { get; set; }
-        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
+
+        [Column(TypeName = "date")]
+        public DateTime Date { get; set; } = DateTime.Now;
         public decimal Amount { get; set; }
         public InvoiceStatus Status { get; set; } = InvoiceStatus.Pending;
 

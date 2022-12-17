@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data.Common;
+using System.Linq.Expressions;
 
 namespace Core.Interfaces
 {
@@ -16,6 +17,9 @@ namespace Core.Interfaces
         Task<ICollection<TType>> ListAllAsync<TType>(Expression<Func<T, bool>> criteria, Expression<Func<T, TType>> select);
         Task<List<T>> ListTopRecordsAsync(int topRecordsNumber);
         Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, bool>> criteria);
+        Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, object>> include);
+        decimal SumColumn(Expression<Func<T, decimal>> columnToSum);
+        decimal SumColumn(Expression<Func<T, bool>> criteria, Expression<Func<T, decimal>> columnToSum);
         Task AddAsync(T entity);
         void Update(T entity);
         bool Delete(T entity);

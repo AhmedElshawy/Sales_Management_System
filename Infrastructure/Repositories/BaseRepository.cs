@@ -73,6 +73,14 @@ namespace Infrastructure.Repositories
         {
             return await _context.Set<T>().Take(topRecordsNumber).ToListAsync();
         }
+        //Expression<Func<T, TType>> select
+        public async Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, object>> include)
+        {
+            return await _context.Set<T>().Take(topRecordsNumber)
+                .Include(include)
+                .ToListAsync();               
+        }
+        
         public async Task<List<T>> ListTopRecordsAsync(int topRecordsNumber, Expression<Func<T, bool>> criteria)
         {
             var query = await _context.Set<T>().Where(criteria).Take(topRecordsNumber)
@@ -111,6 +119,22 @@ namespace Infrastructure.Repositories
                 .Where(criteria).Select(select);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public decimal SumColumn(Expression<Func<T, decimal>> columnToSum)
+        {
+            var query = _context.Set<T>()
+                .Sum(columnToSum);
+
+            return query;
+        }
+
+        public decimal SumColumn(Expression<Func<T, bool>> criteria, Expression<Func<T, decimal>> columnToSum)
+        {
+            var query = _context.Set<T>().Where(criteria)
+                .Sum(columnToSum);
+
+            return query;
         }
     }
 }
