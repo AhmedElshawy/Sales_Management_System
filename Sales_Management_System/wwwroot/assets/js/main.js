@@ -103,10 +103,10 @@ mainJavaScriptFile.pushNotification();
 
 
     // Calender
-    $('#calender').datetimepicker({
-        inline: true,
-        format: 'L'
-    });
+    //$('#calender').datetimepicker({
+    //    inline: true,
+    //    format: 'L'
+    //});
 
 
     // Testimonials carousel

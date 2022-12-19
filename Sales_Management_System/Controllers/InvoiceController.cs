@@ -30,6 +30,11 @@ namespace Sales_Management_System.Controllers
             return View();
         }
 
+        public IActionResult Display()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<JsonResult> Create(List<InvoiceItemDto> invoiceItems, CustomerDto customer)
         {
