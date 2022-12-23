@@ -47,13 +47,19 @@
             url: "/Invoice/Create",
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                invoiceReviewPage.saveCreatedInvoiceDataAtLocalStorage(response);
+                window.location.href = "/Invoice/Display";
             },
             failure: function (err) {
                 window.alert("حدث خطأ غير متوقع");
             }
         });
     },
+
+    saveCreatedInvoiceDataAtLocalStorage: function (data) {
+        let invoiceData = data;
+        localStorage.setItem("createdInvoiceData", JSON.stringify(invoiceData));
+    }
 }
 
 

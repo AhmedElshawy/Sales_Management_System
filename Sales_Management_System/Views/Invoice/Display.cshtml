@@ -1,21 +1,22 @@
 ﻿
-<div class="container-fluid text-dark p-3 pt-5 pb-5" id="element-to-print" style="background-color:white;">
+<div class="container-fluid text-dark" id="element-to-print" style="background-color:white;">
+    @*p-3 pt-5 pb-5*@
     <div class="row">
         <div class="col-12 d-flex justify-content-between">
             <h6 class="text-dark">Invoice To :</h6>
-            <h6 class="text-dark">INV-000515</h6>
+            <h6 class="text-dark">INV-<span id="invoice-id"></span></h6>
         </div>
     </div>
     <div class="row">
         <div class="col-12 d-flex justify-content-between">
             <p>
-                <span id="customer-name">أحمد مصطفي</span>
+                <span id="customer-name"></span>
                 <br />
-                <span id="customer-address">13 محمد عرفه ش احمداهر</span>
+                <span id="customer-address"></span>
                 <br />
-                <span id="customer-phone">01099816700</span>
+                <span id="customer-phone"></span>
             </p>
-            <h6 class="text-dark">Invoice Date : <span>18/10/2022</span></h6>
+            <h6 class="text-dark">Invoice Date : <span id="invoice-date"></span></h6>
         </div>
     </div>
     <div class="row mt-5">
@@ -29,13 +30,8 @@
                         <th class="text-center">Total</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="text-center">
-                        <td class="text-start">لمبه ليد ماكس</td>
-                        <td>1</td>
-                        <td>10.5</td>
-                        <td>20</td>
-                    </tr>
+                <tbody id="items-table-body">
+                  
                 </tbody>
             </table>
         </div>
@@ -46,13 +42,14 @@
                 <table class="table text-dark">
                     <tbody>
                         <tr>
-                            <td>number of items</td>
-                            <td id="number-of-items" class="text-danger text-end">5</td>
+                            <td class="text-bold-800">Total</td>
+                            <td id="total" class="text-bold-800 text-end"></td>
                         </tr>
                         <tr>
-                            <td class="text-bold-800">Total</td>
-                            <td id="total" class="text-bold-800 text-end">100</td>
+                            <td>number of items</td>
+                            <td id="number-of-items" class="text-danger text-end"></td>
                         </tr>
+                       
                     </tbody>
                 </table>
             </div>
@@ -64,7 +61,7 @@
         <div class="bg-secondary text-center rounded p-5 mt-5 mb-5">
             <div class="row">
                 <div class="col-12 text-center">
-                    <a id="btn-test" class="btn btn-outline-primary px-5">
+                    <a id="btn-print" class="btn btn-outline-primary px-5">
                         Print Invoice
                     </a>
                 </div>
@@ -74,21 +71,24 @@
 
 
 @section scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
+
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <script src="~/assets/js/InvoiceDisplayPage.js"></script>
+    @*<script>
         var element = document.getElementById('element-to-print');
         var opt = {
             margin: .3,
             filename: 'myfile.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
-            jsPDF: { unit: 'cm', format: 'letter', orientation: 'portrait' }
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
-        let testBtn = document.getElementById("btn-test");
+        let testBtn = document.getElementById("btn-print");
 
         testBtn.addEventListener("click", () => {
             html2pdf().set(opt).from(element).save();
         });
 
-    </script>
+    </script>*@
 }

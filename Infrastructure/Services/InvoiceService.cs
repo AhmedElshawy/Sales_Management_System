@@ -35,12 +35,10 @@ namespace Infrastructure.Services
 
             foreach (var item in invoiceItemsDto)
             {
-                var product = await _unitOfWork.Products.GetByIdAsync(item.ProductId);
-
-                // validate exsting quantity
-                //if (product.Quantity < item.Quantity) return "Product is out of stock";
+                var product = await _unitOfWork.Products.GetByIdAsync(item.ProductId);               
 
                 product.Quantity -= item.Quantity;
+                product.Sold += item.Quantity;
                 invoiecAmount += product.UnitPrice * item.Quantity;
 
                 InvoiceItem invoiceItem = new InvoiceItem()
