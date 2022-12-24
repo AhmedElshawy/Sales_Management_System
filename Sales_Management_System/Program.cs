@@ -1,4 +1,6 @@
 using Core.Interfaces;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Infrastructure;
 using Infrastructure.Context;
 using Infrastructure.Services;
@@ -25,6 +27,9 @@ namespace Sales_Management_System
 
             // Add Invoice Service
             builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+
+            // Add HtmlToPdf service
+            builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             var app = builder.Build();
 

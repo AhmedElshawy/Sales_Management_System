@@ -1,64 +1,79 @@
 ﻿
-<div class="container-fluid text-dark" id="element-to-print" style="background-color:white;">
-    @*p-3 pt-5 pb-5*@
-    <div class="row">
-        <div class="col-12 d-flex justify-content-between">
-            <h6 class="text-dark">Invoice To :</h6>
-            <h6 class="text-dark">INV-<span id="invoice-id"></span></h6>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice view</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+</head>
+<body>
+
+
+    <div class="container-fluid text-dark" id="element-to-print">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between">
+                <h6 class="text-dark">Invoice To :</h6>
+                <h6 class="text-dark">INV-<span id="invoice-id"></span></h6>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12 d-flex justify-content-between">
-            <p>
-                <span id="customer-name"></span>
-                <br />
-                <span id="customer-address"></span>
-                <br />
-                <span id="customer-phone"></span>
-            </p>
-            <h6 class="text-dark">Invoice Date : <span id="invoice-date"></span></h6>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between">
+                <p>
+                    <span id="customer-name"></span>
+                    <br />
+                    <span id="customer-address"></span>
+                    <br />
+                    <span id="customer-phone"></span>
+                </p>
+                <h6 class="text-dark">Invoice Date : <span id="invoice-date"></span></h6>
+            </div>
         </div>
-    </div>
-    <div class="row mt-5">
-        <div class="table-responsive w-100">
-            <table class="table table-bordered">
-                <thead class="text-dark">
-                    <tr>
-                        <th>Description</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-center">Unit cost</th>
-                        <th class="text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody id="items-table-body">
-                  
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="rowb mt-5">
-        <div class="col-md-6 ms-auto">
-            <div class="table-responsive">
-                <table class="table text-dark">
-                    <tbody>
+        <div class="row mt-3">
+            <div class="table-responsive w-100">
+                <table class="table table-bordered">
+                    <thead class="text-dark">
                         <tr>
-                            <td class="text-bold-800">Total</td>
-                            <td id="total" class="text-bold-800 text-end"></td>
+                            <th>Description</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Unit cost</th>
+                            <th class="text-center">Total</th>
                         </tr>
-                        <tr>
-                            <td>number of items</td>
-                            <td id="number-of-items" class="text-danger text-end"></td>
-                        </tr>
-                       
+                    </thead>
+                    <tbody id="items-table-body">
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-</div>
+        <div class="row mt-2">
+            <div class="col-md-6 ms-auto">
+                <div class="table-responsive">
+                    <table class="table text-dark">
+                        <tbody>
+                            <tr>
+                                <td class="text-bold-800">Total</td>
+                                <td id="total" class="text-bold-800 text-end"></td>
+                            </tr>
+                            <tr>
+                                <td>number of items</td>
+                                <td id="number-of-items" class="text-danger text-end"></td>
+                            </tr>
 
-<div class="container-fluid">
-        <div class="bg-secondary text-center rounded p-5 mt-5 mb-5">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="text-center mt-5">
             <div class="row">
                 <div class="col-12 text-center">
                     <a id="btn-print" class="btn btn-outline-primary px-5">
@@ -67,28 +82,10 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
+  
+   <script src="~/assets/js/InvoiceDisplayPage.js" asp-append-version="true"></script>
 
+</body>
+</html>
 
-@section scripts {
-
-
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
-    <script src="~/assets/js/InvoiceDisplayPage.js"></script>
-    @*<script>
-        var element = document.getElementById('element-to-print');
-        var opt = {
-            margin: .3,
-            filename: 'myfile.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        let testBtn = document.getElementById("btn-print");
-
-        testBtn.addEventListener("click", () => {
-            html2pdf().set(opt).from(element).save();
-        });
-
-    </script>*@
-}
