@@ -71,6 +71,19 @@
         }
         return total.toFixed(2);
     },
+
+    downloadInvoice: function (invoiceId) {
+        var element = document.getElementById('element-to-print');
+        var opt = {
+            margin: .3,
+            filename: `Invoice-${invoiceId}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf(element, opt);
+    }
 }
 
 
@@ -78,20 +91,5 @@ window.addEventListener("load", () => {
     invoiceDisplayPage.fillCustomerData();
     invoiceDisplayPage.drawItemsTable(invoiceDisplayPage.createdInvoiceData.invoiceItems);
     invoiceDisplayPage.fillInvoiceGeneralData();
-
-    invoiceDisplayPage.addScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
-});
-
-invoiceDisplayPage.printBtn.addEventListener("click", () => {
-    var element = document.getElementById('element-to-print');
-    var opt = {
-        margin: .3,
-        filename: 'invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },      
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };   
-
-    html2pdf(element, opt);
-    
+    invoiceDisplayPage.downloadInvoice(invoiceDisplayPage.createdInvoiceData.id);
 });

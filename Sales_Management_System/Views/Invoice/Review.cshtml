@@ -67,9 +67,12 @@
 <div class="bg-secondary text-center rounded p-5 mt-5 mb-5">
     <div class="row">
         <div class="col-12 text-center">
-            <a id="btn-confirm" class="btn btn-outline-primary px-5">
+            <button id="btn-confirm" class="btn btn-outline-primary px-5">
                 Confirm Invoice
-            </a>
+            </button>
+            <button id="print-btn" asp-action="Display" asp-controller="Invoice" disabled class="btn btn-outline-success px-5" target="_blank">
+                Print Invoice
+            </button>
         </div>
     </div>
 </div>

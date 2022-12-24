@@ -88,18 +88,6 @@ namespace Sales_Management_System.Controllers
 
             return Json(invoiceDto);
         }
-        
-        //public async Task<IActionResult> DownloadPDF()
-        //{
-        //    InvoiceItem invItem = new InvoiceItem() { Id=1,Name="test",Quantity=5,UnitPrice = 100};
-        //    List<InvoiceItem> invoiceItems= new List<InvoiceItem>() { invItem };
-
-        //    Invoice inv = new Invoice() { Amount = 500 , Date = DateTime.Now , Id = 1000, InvoiceItems = invoiceItems};
-
-
-        //    var file = _invoiceService.GeneratePDF(inv);
-
-        //    return File(file,"application/pdf");
-        //}
+             
     }
 }

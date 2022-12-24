@@ -48,7 +48,14 @@
             dataType: "json",
             success: function (response) {
                 invoiceReviewPage.saveCreatedInvoiceDataAtLocalStorage(response);
-                window.location.href = "/Invoice/Display";
+                printBtn.removeAttribute("disabled");
+                if (typeof response === "object") {
+                    window.alert("Invoice added successfuly");
+                    confirmBtn.setAttribute("disabled", "");
+                }
+                else {
+                    window.alert(response);
+                }            
             },
             failure: function (err) {
                 window.alert("حدث خطأ غير متوقع");
@@ -86,8 +93,15 @@ let totalField = document.getElementById("total");
 //getting confirm button
 let confirmBtn = document.getElementById("btn-confirm");
 
+//getting print button
+let printBtn = document.getElementById("print-btn");
+
 
 
 confirmBtn.addEventListener("click", () => {
     invoiceReviewPage.submitInvoice();
+});
+
+printBtn.addEventListener("click", () => {
+    window.open("/Invoice/Display", '_blank').focus();
 });
