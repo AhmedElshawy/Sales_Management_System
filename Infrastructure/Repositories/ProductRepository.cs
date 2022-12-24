@@ -14,7 +14,7 @@ namespace Infrastructure.Repositories
             _context= context;
         }      
 
-        public async Task<List<Product>> ApplayFillter(ProductParams productParams)
+        public async Task<List<Product>> ApplayFillter(ProductParams productParams , int? numberOfItems)
         {
             IQueryable<Product> query = _context.Products;
 
@@ -31,7 +31,9 @@ namespace Infrastructure.Repositories
                 query = query.Where(m=>m.Name.ToLower().Contains(productParams.Search));
             }
 
-            return await query.Take(3).ToListAsync();
+            if(numberOfItems == null) return await query.ToListAsync();
+            
+            return await query.Take(numberOfItems.Value).ToListAsync();
         }
 
         public async Task<List<Product>> ApplaySearchFillter(string search)

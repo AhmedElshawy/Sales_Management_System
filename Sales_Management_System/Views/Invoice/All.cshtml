@@ -1,0 +1,70 @@
+﻿@model List<Core.Models.Invoice>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-content-center mb-3">
+                    <h6 class="mb-4">All Invoices</h6>
+                    <div></div>
+                </div>
+                <form asp-action="Index">
+
+                    <div class="row d-flex align-items-center justify-content-between mb-4 mt-4">
+                        <div class="col-3">
+                            <div class="d-none d-md-flex ms-4">
+                                <input name="Search" class="form-control bg-dark border-0 text-white" type="search" placeholder="Search">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            @*<select class="form-select" name="CategoryId">
+                                <option value="null" selected>Filter by category</option>
+                                @foreach (var item in ViewBag.categories)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>*@
+                        </div>
+                        <div class="col-3">
+                            @*<select class="form-select" name="BrandId">
+                                <option value="null" selected>Filter by Brand</option>
+                                @foreach (var item in ViewBag.brands)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>*@
+                        </div>
+                        <div class="col-3">
+                            <input type="submit" value="Search" class="btn btn-outline-primary px-4" />
+                        </div>
+                    </div>
+
+                </form>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Invoice</th>
+                            <th scope="col">Date</th>
+                            @*<th scope="col">Customer</th>*@
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">INV-@item.Id</th>
+                                <td>@item.Date</td>
+                                @*<td>@item.Customer.Name</td>*@
+                                <td>@item.Amount</td>
+                                <td>Paid</td>                              
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

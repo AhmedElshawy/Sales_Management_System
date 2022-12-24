@@ -13,9 +13,16 @@ namespace Sales_Management_System.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> Index()
-        {
-            var products = await _unitOfWork.Products.ListAllAsync();
+        public async Task<IActionResult> Index(ProductParams productParams)
+        {        
+            var products = await _unitOfWork.ProductRepository.ApplayFillter(productParams,null);
+
+            var categories = await _unitOfWork.Categories.ListAllAsync();
+            var brands = await _unitOfWork.Brands.ListAllAsync();
+
+            ViewBag.categories = categories;
+            ViewBag.brands = brands;
+
             return View(products);
         }
 
@@ -111,7 +118,7 @@ namespace Sales_Management_System.Controllers
         [HttpPost]
         public async Task<JsonResult> GetAllProducts(ProductParams productParams)
         {           
-            var products = await _unitOfWork.ProductRepository.ApplayFillter(productParams);
+            var products = await _unitOfWork.ProductRepository.ApplayFillter(productParams,3);
             return Json(products);
         }
 

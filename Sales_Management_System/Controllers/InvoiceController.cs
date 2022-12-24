@@ -1,7 +1,6 @@
 ﻿using Core.Interfaces;
 using Core.Models;
 using Core.ViewModels;
-using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Sales_Management_System.Controllers
@@ -10,12 +9,10 @@ namespace Sales_Management_System.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IInvoiceService _invoiceService;
-        private readonly IConverter _converter;
-        public InvoiceController(IUnitOfWork unitOfWork,IInvoiceService invoiceService,IConverter converter)
+        public InvoiceController(IUnitOfWork unitOfWork,IInvoiceService invoiceService)
         {
             _unitOfWork= unitOfWork;
             _invoiceService= invoiceService;
-            _converter= converter;
         }
         public async Task<IActionResult> Index()
         {
@@ -26,6 +23,12 @@ namespace Sales_Management_System.Controllers
             ViewBag.brands = brands;
 
             return View();
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var invoices = await _unitOfWork.Invoices.ListAllAsync();
+            return View(invoices);
         }
 
         public IActionResult Review()

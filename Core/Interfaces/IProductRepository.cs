@@ -5,7 +5,7 @@ namespace Core.Interfaces
 {
     public interface IProductRepository:IBaseRepository<Product>
     {
-        Task<List<Product>> ApplayFillter(ProductParams productParams);
+        Task<List<Product>> ApplayFillter(ProductParams productParams, int? numberOfItems);
         Task<List<Product>> ApplaySearchFillter(string search);
     }
 }

@@ -8,8 +8,6 @@ namespace Core.Interfaces
     {
         Task<Invoice> GenerateInvoiceAsync(List<InvoiceItemDto> invoiceItemsDto, CustomerDto customerDto);
         string ValidateInputs(List<InvoiceItemDto> invoiceItemsDto, CustomerDto customerDto);
-        Task<string> ValidateItemsQuantityAsync(List<InvoiceItemDto> invoiceItemsDto);
-
-        byte[] GeneratePDF(Invoice invoice);
+        Task<string> ValidateItemsQuantityAsync(List<InvoiceItemDto> invoiceItemsDto);     
     }
 }
