@@ -15,6 +15,7 @@ namespace Infrastructure.Context
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceItem> InvoiceItems { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<AdditionOrder> AdditionOrders { get; set; }
 
     }
 }

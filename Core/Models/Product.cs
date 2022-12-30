@@ -26,6 +26,7 @@ namespace Core.Models
         // navigation properties
         public virtual Category Category { get; set; }
         public virtual Brand Brand { get; set; }
+        public virtual List<AdditionOrder> AdditionOrders { get; set; }
 
     }
 }

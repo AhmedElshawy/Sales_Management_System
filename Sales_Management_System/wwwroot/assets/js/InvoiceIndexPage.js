@@ -292,6 +292,5 @@ let existingCustomersSection = document.getElementById("testbtn");
 
 existingCustomersSection.addEventListener("click", () => {
     let isExpanded = existingCustomersSection.getAttribute("aria-expanded");
-    console.log(isExpanded);
 });
 

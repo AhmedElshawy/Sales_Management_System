@@ -69,6 +69,35 @@ namespace Sales_Management_System.Controllers
             return Content("Falied to delete this item");
         }
 
+        public IActionResult IncreaseQuantity()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IncreaseQuantity(int productId , int quantity)
+        {
+            
+            var product = await _unitOfWork.Products.GetByIdAsync(productId);
+            if (product != null)
+            {
+                product.Quantity += quantity;
+               
+                AdditionOrder additionOrder = new AdditionOrder()
+                {
+                    AddedQunatity= quantity,
+                    ProdutcId=productId
+                };
+
+                await _unitOfWork.AdditionOrders.AddAsync(additionOrder); 
+                //save to DB
+                await _unitOfWork.CompleteAsync();
+                return Json($"successly increased product ({product.Name}) with {quantity} items");
+            }
+
+            return Json("Failed to increase product quntity");
+        }
+
         public async Task<IActionResult> Edit(int id)
         {
             Product product = await _unitOfWork.Products.GetByIdAsync(id);

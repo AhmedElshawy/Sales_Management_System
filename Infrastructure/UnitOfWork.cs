@@ -19,6 +19,7 @@ namespace Infrastructure
 
         public IBaseRepository<InvoiceItem> InvoiceItems { get; private set; }
         public IBaseRepository<Customer> Customers { get; private set; }
+        public IBaseRepository<AdditionOrder> AdditionOrders { get; private set; }
         public IProductRepository ProductRepository { get; private set; }
 
         public UnitOfWork(AppDbContext context)
@@ -31,6 +32,7 @@ namespace Infrastructure
             InvoiceItems= new BaseRepository<InvoiceItem>(context);
             Customers = new BaseRepository<Customer>(context);
             ProductRepository = new ProductRepository(context);
+            AdditionOrders = new BaseRepository<AdditionOrder>(context);    
         }
 
         public async Task<int> CompleteAsync()
