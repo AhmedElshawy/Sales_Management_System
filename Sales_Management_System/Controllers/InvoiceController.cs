@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using cloudscribe.Pagination.Models;
+using Core.Interfaces;
 using Core.Models;
 using Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace Sales_Management_System.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IInvoiceService _invoiceService;
-        public InvoiceController(IUnitOfWork unitOfWork,IInvoiceService invoiceService)
+        private readonly IInvoiceRepository _invoiceRepository;
+        public InvoiceController(IUnitOfWork unitOfWork,IInvoiceService invoiceService,IInvoiceRepository invoiceRepository)
         {
-            _unitOfWork= unitOfWork;
-            _invoiceService= invoiceService;
+            _unitOfWork = unitOfWork;
+            _invoiceService = invoiceService;
+            _invoiceRepository = invoiceRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -25,10 +28,25 @@ namespace Sales_Management_System.Controllers
             return View();
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(DateTime? from , DateTime? to , int pageSize = 10, int pageNumber = 1)
         {
-            var invoices = await _unitOfWork.Invoices.ListAllAsync();
-            return View(invoices);
+            //applying paging
+            var result = await _invoiceRepository.ApplayFilterWithPagination(from, to, pageNumber, pageSize);
+
+            if (from != null && to != null)
+            {
+                ViewBag.from = from.Value.Date.ToString("yyyy-MM-dd");
+                ViewBag.to = to.Value.Date.ToString("yyyy-MM-dd");
+            }
+
+            return View(result);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var invoice = await _invoiceRepository.GetInvoiceWihtDeatils(id);
+
+            return View(invoice);
         }
 
         public IActionResult Review()

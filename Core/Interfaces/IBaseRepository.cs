@@ -27,5 +27,8 @@ namespace Core.Interfaces
         Task AddAsync(T entity);
         void Update(T entity);
         bool Delete(T entity);
+
+        Task<List<T>> ListPaginatedResultAsync(int excludedRecords, int pageSize);
+        Task<int> CountEntityAsync();
     }
 }

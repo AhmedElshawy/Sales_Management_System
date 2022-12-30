@@ -10,4 +10,8 @@
     <Folder Include="Constants\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,83 @@
+﻿@model Core.Models.Invoice;
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card bg-secondary">
+                <div class="card-body text-white">
+                    <div class="container-fluid d-flex justify-content-between">
+                        <div class="col-lg-3 ps-0">
+
+                            <h5 class="mt-5 mb-2 text-muted">Invoice to :</h5>
+                            <p>
+                                <span id="customer-name">@Model.Customer.Name</span>
+                                <br />
+                                <span id="customer-address">@Model.Customer.Address</span>
+                                <br />
+                                <span id="customer-phone">@Model.Customer.Phone</span>
+                            </p>
+                        </div>
+                        <div class="col-lg-3 ps-0">
+
+                            <h5 class="mt-5 mb-2 text-muted">Invoice Details :</h5>
+                            <p>
+                                <span>INV-@Model.Id</span>
+                                <br />
+                                <span>@Model.Date.ToString("MM-dd-yyyy")</span>                            
+                            </p>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+                        <div class="table-responsive w-100">
+                            <table class="table table-bordered text-white">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>Description</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">Unit cost</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.InvoiceItems)
+                                    {
+                                         <tr class="text-center">
+                                            <td class="text-start">@item.Name</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@item.UnitPrice</td>
+                                            @{
+                                                var totalPerItem = item.Quantity * item.UnitPrice;
+                                                <td>@totalPerItem</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-5 w-100">
+                        <div class="row">
+                            <div class="col-md-6 ms-auto">
+                                <div class="table-responsive">
+                                    <table class="table text-white">
+                                        <tbody>
+                                            <tr>
+                                                <td>number of items</td>
+                                                <td id="number-of-items" class="text-danger text-end">@Model.InvoiceItems.Count()</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold-800">Total</td>
+                                                <td id="total" class="text-bold-800 text-end">@Model.Amount</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

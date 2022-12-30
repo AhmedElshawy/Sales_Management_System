@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Context;
+using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,9 @@ namespace Sales_Management_System
 
             // Add Invoice Service
             builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+
+            //Add Invoice repository
+            builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
           
             var app = builder.Build();
 

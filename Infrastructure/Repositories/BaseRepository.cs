@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Infrastructure.Context;
-using System.Linq;
+
 
 namespace Infrastructure.Repositories
 {
@@ -154,6 +154,20 @@ namespace Infrastructure.Repositories
                 .Sum(columnToSum);
 
             return query;
+        }
+
+        public async Task<List<T>> ListPaginatedResultAsync(int excludedRecords, int pageSize)
+        {
+            var query = await _context.Set<T>().Skip(excludedRecords)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<int> CountEntityAsync()
+        {
+            return await _context.Set<T>().CountAsync();    
         }
         
     }

@@ -2,6 +2,7 @@
 using Core.Models;
 using Core.ViewModels;
 using Core.Constants;
+using System.Diagnostics.Contracts;
 
 namespace Infrastructure.Services
 {
@@ -90,7 +91,8 @@ namespace Infrastructure.Services
             }
 
             return message;
-        } 
+        }
+            
     }
 }
 
