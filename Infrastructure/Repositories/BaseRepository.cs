@@ -169,6 +169,11 @@ namespace Infrastructure.Repositories
         {
             return await _context.Set<T>().CountAsync();    
         }
-        
+
+        public async Task<int> CountEntityAsync(Expression<Func<T, bool>> criteria)
+        {
+            return await _context.Set<T>().Where(criteria).CountAsync();
+        }
+
     }
 }

@@ -30,5 +30,6 @@ namespace Core.Interfaces
 
         Task<List<T>> ListPaginatedResultAsync(int excludedRecords, int pageSize);
         Task<int> CountEntityAsync();
+        Task<int> CountEntityAsync(Expression<Func<T, bool>> criteria);
     }
 }

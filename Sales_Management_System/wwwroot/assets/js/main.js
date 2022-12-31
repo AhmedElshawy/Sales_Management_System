@@ -8,17 +8,31 @@
             data: {},
             url: "/Product/GetNearlyOutOfStockProducts",
             dataType: "json",
-            success: function (response) {
-                if (response.length > 0) {
-                    mainJavaScriptFile.notificationsNumber.innerHTML = response.length;
-                }
+            success: function (response) {            
                 mainJavaScriptFile.drawNotificationList(response);
             },
             failure: function (err) {
                 window.alert("حدث خطأ غير متوقع");              
             }
         });
-    },     
+    },
+
+    getNumberOfNotifications: function () {
+        $.ajax({
+            type: "POST",
+            data: {},
+            url: "/Product/GetNumberOfNotifications",
+            dataType: "json",
+            success: function (response) {              
+                if (response > 0) {
+                    mainJavaScriptFile.notificationsNumber.innerHTML = response;
+                }             
+            },
+            failure: function (err) {
+                window.alert("حدث خطأ غير متوقع");
+            }
+        });
+    },
 
     drawNotificationList: function (notificationList) {
         this.notificationArea.innerHTML = "";
@@ -53,7 +67,9 @@
 
     pushNotification: function () {
         this.getNearlyOutOfStockProducts();
+        this.getNumberOfNotifications();
     },
+
     showAllNotifications: function () {
         window.location.href = "/Product/NotificationCenter"
     }
