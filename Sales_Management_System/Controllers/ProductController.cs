@@ -154,9 +154,15 @@ namespace Sales_Management_System.Controllers
         [HttpPost]
         public async Task<JsonResult> GetNearlyOutOfStockProducts()
         {
-            var products = await _unitOfWork.Products.ListAllAsync(m=>m.Quantity < 3);
+            var products = await _unitOfWork.Products.ListAllAsync(4,m=>m.Quantity < 3);
             return Json(products);
-        }      
+        }
+        
+        public async Task<IActionResult> NotificationCenter()
+        {
+            var products = await _unitOfWork.Products.ListAllAsync(m => m.Quantity < 3);
+            return View(products);
+        }
         
     }
 }

@@ -34,7 +34,8 @@
                              </div>
                      </div>
                  </a>
-                 <hr class="dropdown-divider">`;
+                 <hr class="dropdown-divider">
+                 <a onclick="mainJavaScriptFile.showAllNotifications()" style="cursor:pointer;" class="dropdown-item text-center">See all notifications</a>`;
         });
 
         for (var i = 0; i < result.length; i++) {
@@ -52,6 +53,9 @@
 
     pushNotification: function () {
         this.getNearlyOutOfStockProducts();
+    },
+    showAllNotifications: function () {
+        window.location.href = "/Product/NotificationCenter"
     }
 };
 
