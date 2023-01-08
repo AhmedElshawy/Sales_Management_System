@@ -27,6 +27,9 @@ namespace Sales_Management_System
             // Add Invoice Service
             builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
+            // Add Error logging Service
+            builder.Services.AddScoped<IErrorLoggingService, ErrorLoggingService>();
+
             //Add Invoice repository
             builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
           
@@ -34,9 +37,10 @@ namespace Sales_Management_System
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            {                          
+                app.UseExceptionHandler("/Home/Error");            
+            }           
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -46,6 +50,7 @@ namespace Sales_Management_System
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
             app.Run();
         }

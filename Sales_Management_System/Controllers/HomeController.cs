@@ -1,7 +1,10 @@
 ﻿using Core.Interfaces;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sales_Management_System.Models;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace Sales_Management_System.Controllers
 {
@@ -9,11 +12,13 @@ namespace Sales_Management_System.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IErrorLoggingService _errorLoggingService;
 
-        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork, IErrorLoggingService errorLoggingService)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _errorLoggingService = errorLoggingService;
         }
 
         public async Task<IActionResult> Index()
@@ -42,6 +47,7 @@ namespace Sales_Management_System.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            _errorLoggingService.LogError(HttpContext);
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
